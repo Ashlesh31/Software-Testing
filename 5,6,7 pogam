@@ -1,0 +1,72 @@
+#include <stdio.h>
+
+int main() {
+    int locks, stocks, barrels;
+    int totallocks = 0, totalstocks = 0, totalbarrels = 0;
+    float lockprice = 45.0, stockprice = 30.0, barrelprice = 25.0;
+    float sales, com;
+
+    printf("Enter the number of locks and to exit press -1\n");
+    scanf("%d", &locks);
+
+    while (locks != -1) {
+        if (locks < 1 || locks > 70) {
+            printf("Value of locks not in the range of 1-70\n");
+        } else {
+            totallocks += locks;
+            if (totallocks > 70) {
+                printf("New total locks = %d not in the range of 1-70\n", totallocks);
+                totallocks -= locks;  // Revert the addition if out of range
+            }
+        }
+
+        printf("Enter the number of stocks and barrels\n");
+        scanf("%d %d", &stocks, &barrels);
+
+        if (stocks < 1 || stocks > 80) {
+            printf("Value of stocks not in the range of 1-80\n");
+        } else {
+            totalstocks += stocks;
+            if (totalstocks > 80) {
+                printf("New total stocks = %d not in the range of 1-80\n", totalstocks);
+                totalstocks -= stocks;  // Revert the addition if out of range
+            }
+        }
+
+        if (barrels < 1 || barrels > 90) {
+            printf("Value of barrels not in the range of 1-90\n");
+        } else {
+            totalbarrels += barrels;
+            if (totalbarrels > 90) {
+                printf("New total barrels = %d not in the range of 1-90\n", totalbarrels);
+                totalbarrels -= barrels;  // Revert the addition if out of range
+            }
+        }
+
+        printf("Total locks = %d, Total stocks = %d, Total barrels = %d\n", totallocks, totalstocks, totalbarrels);
+        printf("Enter the number of locks and to exit press -1\n");
+        scanf("%d", &locks);
+    }
+
+    float locksales = totallocks * lockprice;
+    float stocksales = totalstocks * stockprice;
+    float barrelsales = totalbarrels * barrelprice;
+    sales = locksales + stocksales + barrelsales;
+
+    printf("\nTotal sales = %.2f", sales);
+
+    if (sales > 1800) {
+        com = 0.10 * 1000;
+        com += 0.15 * 800;
+        com += 0.20 * (sales - 1800);
+    } else if (sales > 1000) {
+        com = 0.10 * 1000;
+        com += 0.15 * (sales - 1000);
+    } else {
+        com = 0.10 * sales;
+    }
+
+    printf("\nCommission = %.2f\n", com);
+
+    return 0;
+}
